@@ -11,7 +11,7 @@ import { sleep } from "./utility";
 const getUserFees0AndFee1 = async (account: string, vault: string) => {
   try {
     let userFee0 = new BigNumber(0);
-    let userFee1 = new BigNumber(1);
+    let userFee1 = new BigNumber(0);
     const { transactions } = await getTxnByVaultAddress(vault);
     const totalTransactions = transactions.length;
 
