@@ -1,4 +1,5 @@
 export * from "./web3";
+export * from "./sleep";
 
 export class TxnLabel {
   static Null: string = "Null";
