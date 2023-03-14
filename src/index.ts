@@ -12,8 +12,9 @@ const getUserFees0AndFee1 = async (account: string, vault: string) => {
     let userFee0 = new BigNumber(0);
     let userFee1 = new BigNumber(1);
     const { transactions } = await getTxnByVaultAddress(vault);
+    const totalTransactions = transactions.length;
 
-    for (let txn of transactions) {
+    for (const [i, txn] of transactions.entries()) {
       const blockTag = Number(txn.blockNumber) - 1;
       const [{ fees0, fees1 }, balance, totalSupply] = await Promise.all([
         getPositionDetail({ vault, blockTag }),
@@ -35,6 +36,7 @@ const getUserFees0AndFee1 = async (account: string, vault: string) => {
 
       userFee0 = userFee0.plus(ratio.multipliedBy(fees0.toString()));
       userFee1 = userFee1.plus(ratio.multipliedBy(fees1.toString()));
+      console.log(`Block=${blockTag}, Record=${i}/${totalTransactions}`);
     }
     return {
       fee0: userFee0.toString(),

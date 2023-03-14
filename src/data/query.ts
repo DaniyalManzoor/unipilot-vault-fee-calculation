@@ -2,7 +2,7 @@ import { gql } from "graphql-request";
 
 export const getQueryTxnByLabel = gql`
   query txnByLabel($label: String!) {
-    transactions(first: 1000, where: { label: $label }) {
+    transactions(first: 1000, where: { label: $label }, orderBy: blockNumber) {
       id
       vaultAddress
       label
@@ -18,6 +18,7 @@ export const getQueryTxnByLabelAndVaultAddress = gql`
     transactions(
       first: 1000
       where: { label: $label, vaultAddress: $vaultAddress }
+      orderBy: blockNumber
     ) {
       id
       vaultAddress
@@ -31,7 +32,11 @@ export const getQueryTxnByLabelAndVaultAddress = gql`
 
 export const getQueryTxnByVaultAddress = gql`
   query txnByVaultAddress($vaultAddress: String!) {
-    transactions(first: 1000, where: { vaultAddress: $vaultAddress }) {
+    transactions(
+      first: 1000
+      where: { vaultAddress: $vaultAddress }
+      orderBy: blockNumber
+    ) {
       id
       vaultAddress
       label
